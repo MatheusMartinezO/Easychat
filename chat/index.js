@@ -5,7 +5,7 @@ const http = require('http').createServer(app);
 const mongoose = require('mongoose');
 const io = require('socket.io')(http);
 const Posts = require('../chat/Posts.js');
-//const res = require('express/lib/response');
+const res = require('express/lib/response');
 
 app.use(express.static(path.join(__dirname,'public')));
 app.set('views',path.join(__dirname,'public'));
