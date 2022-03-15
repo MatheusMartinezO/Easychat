@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">
+    <link rel="stylesheet" href="./font-awesome.min.css" />
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="img3.png">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/0b7b036967.js" crossorigin="anonymous"></script>
+    <title>Easychat</title>
+
+  </head>
+
+  <body>
+    <div id="usuarios">
+      <h2 id="cursor"><i class="fa-solid fa-bars"></i></h2>
+    <ul id="users">
+    </ul>
+  </div>
+  <div id="mensagens">
+    <ul class="scrollBar" id="messages"></ul>
+
+    <form id="form">
+
+      <input id="input" autocomplete="off" /><button>Send</button>
+
+    </form>
+  </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+/*
+window.addEventListener("load", function(e) {
+  var el = document.querySelector("#messages");
+  el.scrollLeft = el.scrollWidth;
+});
+*/
+
+/*
+$(function()
+{
+  
+});
+*/
+
+  
+
+
+  document.getElementById('cursor').addEventListener('click',function(){
+  
+    var usu = document.getElementById('usuarios');
+   var ul = document.getElementById('users');
+    if(usu.style.width == '50%' /*&& ul.style.display == 'block'*/){
+      $('#users').fadeOut(150);
+       usu.style.width = '10%';
+     // setTimeout(() => {ul.style.width = '50%'}, 200)
+      //setTimeout(() => {ul.style.display = 'none'}, 200)
+    }else{
+        usu.style.width = '50%';
+        setTimeout(() => {$('#users').fadeIn(400)}, 200)
+        //ul.style.width = 'auto';
+        //setTimeout(() => {ul.style.display = 'block'}, 450)
+    }
+  // let usu = document.getElementById('eu');
+  // let ul = document.getElementById('usuarios');
+
+  // usu.style.width = '50%';
+   //ul.style.display = 'block';
+
+  })
+
+
+var socket = io();
+
+var nome = prompt('Qual seu nome?');
+
+
+
+socket.emit('new user',nome);
+
+
+
+
+socket.on('new user',function(data){
+
+    if(data.success){
+
+      alert('Bem-vindo ao Danki Chat '+nome);
+      socket.emit('users',nome);
+
+    }else{
+
+        alert('Já existe usuário com este nome....');
+
+        window.location.href= "/";
+
+    }
+
+})
+
+
+var messages = document.getElementById('messages');
+
+var usuariosAtivos = document.getElementById('users');
+
+var form = document.getElementById('form');
+
+var input = document.getElementById('input');
+
+socket.on('users', function(msg) {
+  var contadorS = false;
+  for(let i = 0;i < msg.length;i++){
+
+    for(let user of msg[i].usuarioss){
+      var res = user;
+      adicionar()
+     function adicionar(data){
+      console.log(data)
+      console.log($('#users > li').text().indexOf(data))
+      console.log(contadorS);
+      var usuarios = document.createElement('li');
+
+      if(contadorS == true && $('#users > li').text().indexOf(data) != -1){
+      console.log('retirar o: '+data);
+      $('#users > li').remove( `:contains('${data}')` )
+      //usuarios.textContent = $('#users > li').text().replace(data,'')
+      }else if($('#users > li').text().indexOf(user) != -1){
+      console.log('nao adicionou pq ja tinha')
+      }else{
+
+        contadorS == false
+
+        usuarios.style.color = 'black';
+
+        usuarios.textContent = res;
+
+        users.appendChild(usuarios);   
+      }   
+     }
+
+    }
+    
+  }
+  socket.on('usersDelete', function(data) {
+     if($('#users > li').text().indexOf(data) != -1){
+      //console.log($('#users > li').text().substring($('#users > li').text().indexOf(data),data.length))
+      let unidade = $('#users > li').text();
+      let inicial = unidade.indexOf(data);
+      let final = data.length
+      contadorS = true;
+      var novaUnidade = unidade.substr(inicial,final)
+      var li = unidade.replace(novaUnidade,'');
+      $('#users').html()
+      //console.log(contadorS);
+      adicionar(novaUnidade);
+     }else{
+       console.log('nao tem ninguem para deletar')
+     }
+  })
+
+
+});
+
+form.addEventListener('submit',(e)=>{
+
+    e.preventDefault();
+
+    if(input.value){
+
+        socket.emit('chat message',{msg:input.value,nome:nome});
+
+        input.value = '';
+
+       
+
+    }
+
+})
+
+
+socket.on('chat message',function(obj){
+  var mensagens =document.getElementById('mensagens');
+    if(obj.nome == nome){
+
+      //coloco a mensagem com uma cor.
+
+      var item = document.createElement('li');
+
+      item.style.color = 'black';
+    
+
+      item.style.background = '#14DAA7';
+
+      item.style.marginLeft = 'auto';
+
+      item.style.borderRadius = '4px';
+
+      item.textContent = obj.nome+':  '+obj.msg;
+
+      messages.appendChild(item);
+
+
+      window.scrollTo(0, document.body.scrollHeight);
+
+      $('#messages').animate({scrollTop: $('#messages')[0].scrollHeight}, 100);
+
+    }else{
+
+      //coloco com outra.
+
+      var item = document.createElement('li');
+
+      item.style.color = 'white';
+
+      item.style.background = '#DB1E4D';
+
+      item.style.marginRight = 'auto';
+
+      item.style.borderRadius = '4px';
+      
+      item.textContent =obj.nome+': '+obj.msg;
+
+      messages.appendChild(item);
+
+      window.scrollTo(0, document.body.scrollHeight);
+
+      $('#messages').animate({scrollTop: $('#messages')[0].scrollHeight}, 100);
+
+    }
+
+})
+
+
+    </script>
+   <script src="https://kit.fontawesome.com/0b7b036967.js" crossorigin="anonymous"></script>
+  </body>
+
+</html>

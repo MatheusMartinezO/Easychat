@@ -1,0 +1,130 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+        body {
+          width:100%;
+          height:100vh;
+          display:flex; 
+          flex-flow: row nowrap;
+           justify-content: space-between;
+           align-items: flex-start;
+           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+         #usuarios h2,i{
+          color: white;
+          font-size: 20px;
+          display: none;
+         }
+         #usuarios #users{
+           transition: 0.6s;
+         }
+        #usuarios{
+          transition: 0.6s;
+          width: 25%;
+          height:100vh;
+          background:#5271F5;
+          color: #fff;
+          padding: 20px;
+        }
+        #mensagens{
+          width: 75%;
+          height:100vh;
+          background-color: #D0dce0;
+          padding: 10px;
+          display: flex;
+          flex-flow: column nowrap;
+          justify-content: flex-end;
+          align-items: flex-end;
+        }
+  
+        .scrollBar::-webkit-scrollbar{
+            width: 8px;
+            border: 1px solid #F4FBFA;
+            background-color: #F4FBFA;
+        }
+        .scrollBar::-webkit-scrollbar-thumb{
+            background-color: #5271F5;
+            width:8px;
+            border-radius: 6px;
+
+        }
+        .scrollBarSobre::-webkit-scrollbar{
+            width: 8px;
+            border: 1px solid #F4FBFA;
+            background-color: #F4FBFA;
+        }
+        
+
+        #form { border-radius: 9px; width:100%; background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: relative; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+  
+        #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+  
+        #input:focus { outline: none; }
+  
+        #form > button { cursor: pointer; background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+  
+  
+        #messages { 
+          height:100vh; width:100%; 
+          vertical-align: bottom;
+           display:flex;
+           position: relative;
+           overflow: auto;  
+           flex-flow: column nowrap;  
+           /*overflow-y: scroll;*/ 
+           list-style-type: none;
+            margin: 10px 0; padding: 10px 0; 
+          }
+       
+        /*
+        #messages::before {
+          content: "";
+          flex: 0 0 600px;
+          visibility: hidden;
+        }
+        */
+        
+
+        #messages > li {display: flex; flex-shrink: 0; padding: 0.5rem 1rem;  margin: 10px;}
+  
+        #messages > li { background: #efefef; }
+  
+        #users { list-style-type: none; margin: 0; padding: 0; }
+  
+        #users > li { padding: 0.5rem 1rem; }
+  
+        #users > li { border-bottom: 1px solid #333;background: #efefef; }
+
+        #users > li:nth-child(1){
+          color: crimson !important;
+        }
+  
+        @media screen and (max-width:720px) {
+          #usuarios{
+            z-index: 2;
+          height:100vh;
+          width: 10%;
+          display: flex;
+          flex-flow: column nowrap;
+          justify-content:flex-start;
+          align-items: center;
+        }
+        #usuarios h2,i{
+          cursor: pointer;
+          font-size: 20px;
+          display: block;
+         }
+        #usuarios ul{
+          margin-top: 15px;
+          display: none;
+        }
+        #mensagens{
+          position: absolute;
+          right: 0;
+          top: 0;
+          z-index: 1;
+          width: 90%;
+        }
+        }
