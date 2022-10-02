@@ -21,7 +21,7 @@ var usuarios = [];
 
 var socketIds = [];
 
-mongoose.connect('mongodb+srv://root:root123@cluster0.oy4ty.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology:true}).then(function(){
+mongoose.connect('mongodb+srv://root:root123@cluster0.x3vimev.mongodb.net/?retryWrites=true&w=majority',{useNewUrlParser: true, useUnifiedTopology:true}).then(function(){
     console.log('Conectado com sucesso ao mongodb')
 }).catch(function(err){
     console.log(err.message);
